@@ -3,6 +3,7 @@ from tensorflow.keras import losses
 import numpy as np
 import tensorflow as tf 
 from tensorflow.keras.models import Model
+import tensorflow.keras import backend as K
 
 class VanillaGradients(GradVisualiser):
     def __init__(self,model,input_image = None):
