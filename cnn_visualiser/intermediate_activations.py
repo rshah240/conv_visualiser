@@ -24,8 +24,8 @@ class IntermediateActivations:
         for layer in self.activation_model.layers:
             layer_names.append(layer)
 
-        if len(self.input_image.shape) != 4:
-            self.input_image = np.expand_dims(axis = 0)
+        if len(input_image.shape) != 4:
+            input_image = np.expand_dims(axis = 0)
 
         activations = self.activation_model.predict(input_image)[0]
         activations = np.array(activations)
