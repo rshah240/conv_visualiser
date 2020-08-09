@@ -50,36 +50,6 @@ class GradVisualiser:
         else:
             return grads
 
-    def generate_filter_pattern(self,filter_index,input_height,input_width,
-                         custom_layer = None,steps = 40,input_channels = 3):
-        """
-        Function for pattern generation of intermediate feature maps of convolution layers using gradient ascent
-
-        if custom layer is not passed function will automatically use layer_name attributes of this class
-        return: activation map"""
-        if custom_layer == None:
-            layer_name = self.layer_name
-        else:
-            layer_name = custom_layer
-
-        inter_model = Model(self.model.input,self.model.get_layer(layer_name).output)
-        with tf.GradientTape() as g:
-            g.watch(self.model.input)
-            loss = K.mean((inter_model(self.model.input)[:,:,:,filter_index]))
-        grads = g.gradient(loss,self.model.input)[0]
-        #Normalizing Gradients
-        grads /= (K.sqrt(K.mean(K.square(grads))) + 1e-5)
-        function = K.function([self.model.input],[loss,grads])
-        input_img_data = np.random.random((1,input_height,input_width,input_channels))*20 + 128
-        ascent_step = 1
-        for i in range(steps):
-            loss_value, grads_value = function([input_img_data])
-            if loss_value <= 0:
-                break
-            input_img_data += grads_value*ascent_step
-
-        return GradVisualiser.deprocess_image(input_img_data[0])
-
     @staticmethod
     def deprocess_image(x):
         """utility function to convert a float array into a valid uint8 image
