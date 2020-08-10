@@ -1,6 +1,15 @@
 # conv_visualiser
 Python Package for Visualising Convolution Neural Network Features and Intermediate Activation of Tensorflow 2.0 Models
 
+# Paper Reference
+https://arxiv.org/abs/1610.02391
+
+# Requirements
+Tensorflow 2.0 or newer <br/>
+OpenCv <br/>
+Matplotlib <br/>
+numpy <br/>
+
 ## Installation
 ```bash
 pip install conv_visualiser
