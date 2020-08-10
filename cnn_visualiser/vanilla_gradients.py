@@ -40,17 +40,13 @@ class VanillaGradients(GradVisualiser):
         return grads
 
     def generate_filter_pattern(self,filter_index,input_height,input_width,
-                         custom_layer = None,steps = 40,input_channels = 3):
+                         layer_name,steps = 40,input_channels = 3):
         """
         Function for pattern generation of intermediate feature maps of convolution layers using gradient ascent
 
         if custom layer is not passed function will automatically use layer_name attributes of this class
         return: activation map"""
-        if custom_layer == None:
-            layer_name = self.layer_name
-        else:
-            layer_name = custom_layer
-
+    
         inter_model = Model(self.model.input,self.model.get_layer(layer_name).output)
         with tf.GradientTape() as g:
             g.watch(self.model.input)
