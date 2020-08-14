@@ -20,6 +20,7 @@ from cnn_visualiser import GRAD_CAM
 from cnn_visualiser import GradVisualiser
 from cnn_visualiser import IntermediateActivations
 from cnn_visualiser import VanillaGradients
+from cnn_visualiser import IntegratedGradients
 
 
 from tensorflow.keras.applications import vgg16
@@ -55,6 +56,10 @@ ia = IntermediateActivations(model=vgg_model,layer_names = ['block2_conv1','bloc
 ia.display_grid(input_image=img) #Matplotlib Plot
 
 ia.display_single_channel(input_image = img)
+
+ig = IntegratedGradients(model = vgg_model,input_image=img)
+attributions = ig.integrated_gradients()[0] #to save  attributions
+ig.display_plot_img_attributions()# to display plot img
 ```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
