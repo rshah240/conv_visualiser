@@ -84,16 +84,16 @@ class IntegratedGradients:
         # Sum of the attributions across color channels for visualization.
         # The attribution mask shape is a grayscale image with height and width
         # equal to the original image.
-        attribution_mask = tf.reduce_sum(tf.math.abs(attributions), axis=-1)
+        attribution_mask = tf.reduce_sum(tf.math.abs(attributions), axis=-1)[0]
 
         fig, axs = plt.subplots(nrows=2, ncols=2, squeeze=False, figsize=(8, 8))
 
         axs[0, 0].set_title('Baseline image')
-        axs[0, 0].imshow(self.baseline)
+        axs[0, 0].imshow(self.baseline[0])
         axs[0, 0].axis('off')
 
         axs[0, 1].set_title('Original image')
-        axs[0, 1].imshow(self.input_image)
+        axs[0, 1].imshow(self.input_image[0])
         axs[0, 1].axis('off')
 
         axs[1, 0].set_title('Attribution mask')
@@ -102,7 +102,7 @@ class IntegratedGradients:
 
         axs[1, 1].set_title('Overlay')
         axs[1, 1].imshow(attribution_mask, cmap=cmap)
-        axs[1, 1].imshow(self.input_image, alpha=overlay_alpha)
+        axs[1, 1].imshow(self.input_image[0], alpha=overlay_alpha)
         axs[1, 1].axis('off')
 
         plt.tight_layout()
