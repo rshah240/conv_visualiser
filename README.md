@@ -1,12 +1,13 @@
 # conv_visualiser
 Python Package for Visualising Convolution Neural Network Features and Intermediate Activation of Tensorflow 2.0 Models
 
-# Paper Reference
-https://arxiv.org/abs/1610.02391
+# Reference
+https://arxiv.org/abs/1610.02391 <br/>
+https://www.tensorflow.org/tutorials/interpretability/integrated_gradients
 
 # Requirements
 Tensorflow 2.0 or newer <br/>
-OpenCv <br/>
+OpenCV <br/>
 Matplotlib <br/>
 numpy <br/>
 
@@ -58,8 +59,8 @@ ia.display_grid(input_image=img) #Matplotlib Plot
 ia.display_single_channel(input_image = img)
 
 ig = IntegratedGradients(model = vgg_model,input_image=img)
-attributions = ig.integrated_gradients()[0] #to save  attributions
-ig.display_plot_img_attributions()# to display plot img
+attributions = ig.integrated_gradients(batch_size=2) #to save  attributions
+ig.display_plot_img_attributions(batch_size=2)# to display plot img
 ```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -198,6 +199,41 @@ Vanilla Gradients output
 
 
 ![Image of Vanilla Gradients Output](https://github.com/rshah240/conv_visualiser/blob/master/Output/vanilla_grads.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Integrated Gradients Output
+
+
+
+
+
+
+
+
+
+![Image of Integrated Gradients Output](https://github.com/rshah240/conv_visualiser/blob/master/Output/integrated_gradients.png)
+
+
+
+
+
+
 
 
 
