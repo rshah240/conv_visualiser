@@ -1,6 +1,7 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
+
 class IntegratedGradients:
     '''Class having attributes and functions to calculate Integrated Gradients'''
     def __init__(self,model,input_image):
@@ -75,16 +76,17 @@ class IntegratedGradients:
 
         # 5. Scale integrated gradients with respect to input.
         integrated_gradients = (self.input_image - self.baseline) * avg_gradients
+        integrated_gradients = tf.reduce_sum(tf.math.abs(integrated_gradients),axis = -1)[0]
 
         return integrated_gradients
 
     def display_plot_img_attributions(self,cmap='viridis',m_steps = 50,batch_size = 32,overlay_alpha = 0.4):
         '''Function to plot Image Attributions'''
-        attributions = self.integrated_gradients(m_steps,batch_size)
+        attribution_mask = self.integrated_gradients(m_steps,batch_size)
         # Sum of the attributions across color channels for visualization.
         # The attribution mask shape is a grayscale image with height and width
         # equal to the original image.
-        attribution_mask = tf.reduce_sum(tf.math.abs(attributions), axis=-1)[0]
+        
 
         fig, axs = plt.subplots(nrows=2, ncols=2, squeeze=False, figsize=(8, 8))
 
