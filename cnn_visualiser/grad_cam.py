@@ -65,6 +65,7 @@ class GRAD_CAM(GradVisualiser):
         return GradVisualiser.deprocess_image(grad_cam)
 
     def get_superimposed(self,image_path,class_label = None):
+        """Generating superimposed image"""
         img = cv2.imread(image_path)
         heatmap = self.get_heat_map(class_label)
         #heatmap = np.squeeze(heatmap,axis = 0)
